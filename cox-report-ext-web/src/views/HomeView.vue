@@ -16,10 +16,13 @@
                     ></v-text-field>
                 </v-col>
                 <v-col cols="2">
-                    <v-text-field
+                    <v-select
+                            :items="classifiers.auctionLocation"
+                            item-text="name"
+                            item-value="uid"
                             label="Search by Auction Location"
                             solo
-                    ></v-text-field>
+                    ></v-select>
                 </v-col>
                 <v-col cols="2">
                     <v-text-field
@@ -60,8 +63,14 @@
 </template>
 
 <script>
+import {mapActions, mapState} from "pinia";
+import {useClassifierStorage} from "@/store/classifierStorage";
+
 export default {
     name: 'HomeView',
+    computed: {
+        ...mapState(useClassifierStorage, ['classifiers']),
+    },
 
     data: () => ({
         trainingDocumentsFilter: {
@@ -186,6 +195,11 @@ export default {
         ],
         saleTransactionTotalElements: 10,
     }),
-    methods: {}
+    async mounted() {
+        await this.loadAuctionLocationClassifier()
+    },
+    methods: {
+        ...mapActions(useClassifierStorage, ['loadAuctionLocationClassifier']),
+    }
 }
 </script>

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import HelloWorld from './components/HomeView.vue';
+import HelloWorld from './views/HomeView.vue';
 
 export default {
     name: 'App',
