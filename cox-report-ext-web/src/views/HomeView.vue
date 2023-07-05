@@ -5,19 +5,25 @@
             <v-row class="ml-2 mr-2">
                 <v-col cols="3">
                     <v-text-field
+                            v-model="filter.vin"
+                            clearable
                             label="Search by VIN"
                             solo
                     ></v-text-field>
                 </v-col>
                 <v-col cols="3">
                     <v-text-field
+                            v-model="filter.dealerNumber"
+                            clearable
                             label="Search by Dealer Number"
                             solo
                     ></v-text-field>
                 </v-col>
                 <v-col cols="2">
                     <v-select
+                            v-model="filter.auctionLocationUid"
                             :items="classifiers.auctionLocation"
+                            clearable
                             item-text="name"
                             item-value="uid"
                             label="Search by Auction Location"
@@ -25,10 +31,7 @@
                     ></v-select>
                 </v-col>
                 <v-col cols="2">
-                    <v-text-field
-                            label="Search by Sale Date"
-                            solo
-                    ></v-text-field>
+                    <date-picker v-model="filter.saleDate" label="Search by Sale Date"></date-picker>
                 </v-col>
                 <v-col class="mt-2" cols="2">
                     <v-btn
@@ -41,6 +44,7 @@
                             class="ml-2"
                             color="green"
                             outlined
+                            @click="onClearFilters"
                     >
                         Clear
                     </v-btn>
@@ -65,17 +69,24 @@
 <script>
 import {mapActions, mapState} from "pinia";
 import {useClassifierStorage} from "@/store/classifierStorage";
+import DatePicker from "@/components/DatePicker.vue";
 
 export default {
     name: 'HomeView',
+    components: {DatePicker},
+    comments: {
+        DatePicker
+    },
     computed: {
         ...mapState(useClassifierStorage, ['classifiers']),
     },
 
     data: () => ({
-        trainingDocumentsFilter: {
-            trainingSetUid: null,
-            message: null,
+        filter: {
+            vin: null,
+            dealerNumber: null,
+            auctionLocationUid: null,
+            saleDate: null,
         },
         saleTransactionOptions: {},
         saleTransactionHeaders: [
@@ -200,6 +211,14 @@ export default {
     },
     methods: {
         ...mapActions(useClassifierStorage, ['loadAuctionLocationClassifier']),
+        onClearFilters() {
+            this.filter = {
+                vin: null,
+                dealerNumber: null,
+                auctionLocationUid: null,
+                saleDate: null,
+            }
+        }
     }
 }
 </script>
