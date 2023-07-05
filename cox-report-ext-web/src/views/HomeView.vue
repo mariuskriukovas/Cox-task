@@ -33,10 +33,11 @@
                 <v-col cols="2">
                     <date-picker v-model="filter.saleDate" label="Search by Sale Date"></date-picker>
                 </v-col>
-                <v-col class="mt-2" cols="2">
+                <v-col align="center" class="mt-2" cols="2">
                     <v-btn
                             color="green"
                             outlined
+                            @click="getSalesTransactions"
                     >
                         Search
                     </v-btn>
@@ -59,6 +60,7 @@
                             :options.sync="saleTransactionOptions"
                             :server-items-length="saleTransactionTotalElements"
                             class="elevation-1"
+                            item-key="uid"
                     ></v-data-table>
                 </v-col>
             </v-row>
@@ -70,6 +72,7 @@
 import {mapActions, mapState} from "pinia";
 import {useClassifierStorage} from "@/store/classifierStorage";
 import DatePicker from "@/components/DatePicker.vue";
+import SaleTransactionApi from "@/api/mockSaleTransactionApi.js";
 
 export default {
     name: 'HomeView',
@@ -79,6 +82,14 @@ export default {
     },
     computed: {
         ...mapState(useClassifierStorage, ['classifiers']),
+    },
+    watch: {
+        saleTransactionOptions: {
+            async handler() {
+                await this.getSalesTransactions()
+            },
+            deep: true,
+        },
     },
 
     data: () => ({
@@ -122,89 +133,8 @@ export default {
                 value: 'sellerName',
             },
         ],
-        saleTransactions: [
-            {
-                vin: 'ABC123',
-                vehicle: 'Honda Accord',
-                auctionLocation: 'New York',
-                saleDate: '2023-07-01',
-                buyerName: 'John Smith',
-                sellerName: 'Jane Doe'
-            },
-            {
-                vin: 'DEF456',
-                vehicle: 'Toyota Camry',
-                auctionLocation: 'Los Angeles',
-                saleDate: '2023-07-02',
-                buyerName: 'Michael Johnson',
-                sellerName: 'Emily Davis'
-            },
-            {
-                vin: 'GHI789',
-                vehicle: 'Ford Mustang',
-                auctionLocation: 'Chicago',
-                saleDate: '2023-07-03',
-                buyerName: 'David Brown',
-                sellerName: 'Olivia Wilson'
-            },
-            {
-                vin: 'JKL012',
-                vehicle: 'Chevrolet Silverado',
-                auctionLocation: 'Houston',
-                saleDate: '2023-07-04',
-                buyerName: 'Daniel Martinez',
-                sellerName: 'Sophia Taylor'
-            },
-            {
-                vin: 'MNO345',
-                vehicle: 'Volkswagen Golf',
-                auctionLocation: 'Miami',
-                saleDate: '2023-07-05',
-                buyerName: 'William Anderson',
-                sellerName: 'Ava Thomas'
-            },
-            {
-                vin: 'PQR678',
-                vehicle: 'BMW X5',
-                auctionLocation: 'San Francisco',
-                saleDate: '2023-07-06',
-                buyerName: 'James Harris',
-                sellerName: 'Mia White'
-            },
-            {
-                vin: 'STU901',
-                vehicle: 'Mercedes-Benz C-Class',
-                auctionLocation: 'Dallas',
-                saleDate: '2023-07-07',
-                buyerName: 'Joseph Clark',
-                sellerName: 'Liam Martinez'
-            },
-            {
-                vin: 'VWX234',
-                vehicle: 'Audi Q7',
-                auctionLocation: 'Atlanta',
-                saleDate: '2023-07-08',
-                buyerName: 'Christopher Baker',
-                sellerName: 'Harper Johnson'
-            },
-            {
-                vin: 'YZA567',
-                vehicle: 'Jeep Wrangler',
-                auctionLocation: 'Seattle',
-                saleDate: '2023-07-09',
-                buyerName: 'Matthew Wilson',
-                sellerName: 'Ella Davis'
-            },
-            {
-                vin: 'BCD890',
-                vehicle: 'Lexus RX',
-                auctionLocation: 'Phoenix',
-                saleDate: '2023-07-10',
-                buyerName: 'Benjamin Martin',
-                sellerName: 'Amelia Anderson'
-            }
-        ],
-        saleTransactionTotalElements: 10,
+        saleTransactions: [],
+        saleTransactionTotalElements: null,
     }),
     async mounted() {
         await this.loadAuctionLocationClassifier()
@@ -218,7 +148,12 @@ export default {
                 auctionLocationUid: null,
                 saleDate: null,
             }
-        }
+        },
+        async getSalesTransactions() {
+            const data = await SaleTransactionApi.getSalesTransactions(this.filter, this.saleTransactionOptions)
+            this.saleTransactions = data?.content ?? []
+            this.saleTransactionTotalElements = data?.totalElements
+        },
     }
 }
 </script>
