@@ -50,7 +50,17 @@
                                 :server-items-length="auctionHistoryTotalElements"
                                 class="elevation-1"
                                 item-key="uid"
-                        ></v-data-table>
+                        >
+                            <template v-slot:[`item.auctionCode`]="{ item }">
+                                <v-btn
+                                        color="primary"
+                                        text
+                                        @click="openPaymentInformationModal(item)"
+                                >
+                                    {{ item.auctionCode }}
+                                </v-btn>
+                            </template>
+                        </v-data-table>
                     </v-col>
                 </v-row>
             </v-card>
@@ -75,6 +85,9 @@
                 </v-tabs-items>
             </v-card>
         </v-card>
+        <v-row>
+            <PaymentInformation></PaymentInformation>
+        </v-row>
     </v-container>
 </template>
 
@@ -82,10 +95,13 @@
 import SaleTransactionApi from "@/api/mockSaleTransactionApi.js";
 import {ARBITRATION_INFORMATION_ROUTE_NAME, HOME_ROUTE_NAME, TITLE_INFORMATION_ROUTE_NAME} from "@/plugins/router";
 import HeaderLabel from "@/components/HeaderLabel.vue";
+import PaymentInformation from "@/views/modals/PaymentInformation.vue";
+import {useModalStorage} from "@/store/modalStorage";
+import {mapActions} from "pinia";
 
 export default {
     name: 'VehicleView',
-    components: {HeaderLabel},
+    components: {PaymentInformation, HeaderLabel},
     watch: {
         auctionHistoryOptions: {
             async handler() {
@@ -159,6 +175,7 @@ export default {
         this.header = await SaleTransactionApi.getVehicleHeader(vehicleUid)
     },
     methods: {
+        ...mapActions(useModalStorage, ['openPaymentInformation']),
         handleTabChange(value) {
             this.activeTab = value
         },
@@ -170,6 +187,9 @@ export default {
         },
         async navigateToHomeView() {
             await this.$router.push({name: HOME_ROUTE_NAME, params: {}})
+        },
+        async openPaymentInformationModal(item) {
+            await this.openPaymentInformation(item?.auctionUid)
         },
     }
 }

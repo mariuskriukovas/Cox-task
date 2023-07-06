@@ -140,6 +140,7 @@ export default {
             return {
                 vehicleUid,
                 uid: '8' + e.uid.slice(1),
+                auctionUid: '9' + e.uid.slice(1),
                 vra: Math.floor(100000 + Math.random() * 900000),
                 auctionCode: Math.floor(1000 + Math.random() * 9000),
                 auctionLocation: e.auctionLocation,
