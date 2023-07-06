@@ -18,7 +18,6 @@
                     </v-icon>
                 </v-btn>
             </v-card-title>
-
             <v-container>
                 <v-row class="ml-2 mr-2">
                     <v-col cols="12">
@@ -26,7 +25,6 @@
                     </v-col>
                 </v-row>
             </v-container>
-
             <v-card class="mt-2 ml-4 mr-4" elevation="4">
                 <v-card-title>Fee Details</v-card-title>
                 <v-row class="ml-2 mr-2">
@@ -35,7 +33,6 @@
                     </v-col>
                 </v-row>
             </v-card>
-
             <v-card class="mt-6 ml-4 mr-4" elevation="4">
                 <v-card-title>Sale Information</v-card-title>
                 <v-row class="ml-2 mr-2">
