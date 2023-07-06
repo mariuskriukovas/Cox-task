@@ -1,5 +1,13 @@
-# Cox-task
-Task for job interview for Cox, via Softensity.
+# Task
+Job Interview Task: Vehicle Auction Report System Development for Cox (via Softensity)
+
+## Deployment
+The application is deployed on AWS Elastic Beanstalk using a Docker container.
+
+URL:
+http://cox-demo-project-env.eba-ifuhppyx.eu-north-1.elasticbeanstalk.com/
+http://13.50.216.65/
+
 
 ## Home Screen
 The Home Screen displays sales transactions, as shown in the provided example. By clicking on the VIN code, you can navigate to the vehicle auction history. The search filters are only for demonstration purposes, and only VIN and Date fields are provided as an example of a working feature.
@@ -14,6 +22,6 @@ The Vehicle Auction screen displays the complete auction history of a custom veh
 
 ![image](https://github.com/mariuskriukovas/Cox-task/assets/56306299/ee40417f-3cf1-432f-9aae-5e2efd7438c0)
 
-![image](https://github.com/mariuskriukovas/Cox-task/assets/56306299/5974bd28-fae3-4f84-8f0e-3e2fe09d1a55)
+![image](https://github.com/mariuskriukovas/Cox-task/assets/56306299/10092824-e69a-4511-8586-75909afd87d0)
 
 If you have any more questions or need further assistance, feel free to ask!
