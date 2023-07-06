@@ -17,21 +17,16 @@
         </v-app-bar>
 
         <v-main>
-            <HelloWorld/>
+            <router-view/>
         </v-main>
     </v-app>
 </template>
 
 <script>
-import HelloWorld from './views/HomeView.vue';
 
 export default {
     name: 'App',
-
-    components: {
-        HelloWorld,
-    },
-
+    components: {},
     data: () => ({
         //
     }),

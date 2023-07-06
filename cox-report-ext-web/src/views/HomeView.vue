@@ -61,7 +61,17 @@
                             :server-items-length="saleTransactionTotalElements"
                             class="elevation-1"
                             item-key="uid"
-                    ></v-data-table>
+                    >
+                        <template v-slot:[`item.vin`]="{ item }">
+                            <v-btn
+                                    color="primary"
+                                    text
+                                    @click="navigateToVehicleView(item)"
+                            >
+                                {{ item.vin }}
+                            </v-btn>
+                        </template>
+                    </v-data-table>
                 </v-col>
             </v-row>
         </v-card>
@@ -73,13 +83,11 @@ import {mapActions, mapState} from "pinia";
 import {useClassifierStorage} from "@/store/classifierStorage";
 import DatePicker from "@/components/DatePicker.vue";
 import SaleTransactionApi from "@/api/mockSaleTransactionApi.js";
+import {VEHICLE_ROUTE_NAME} from "@/plugins/router";
 
 export default {
     name: 'HomeView',
     components: {DatePicker},
-    comments: {
-        DatePicker
-    },
     computed: {
         ...mapState(useClassifierStorage, ['classifiers']),
     },
@@ -153,6 +161,9 @@ export default {
             const data = await SaleTransactionApi.getSalesTransactions(this.filter, this.saleTransactionOptions)
             this.saleTransactions = data?.content ?? []
             this.saleTransactionTotalElements = data?.totalElements
+        },
+        async navigateToVehicleView(item) {
+            await this.$router.push({name: VEHICLE_ROUTE_NAME, params: {uid: item.uid}})
         },
     }
 }
