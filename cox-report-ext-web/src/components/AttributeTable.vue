@@ -7,8 +7,17 @@
             hide-default-footer
             item-key="uid"
     >
-        <template v-slot:[`item.vin`]="{ item }">
-            <p>{{ item }}</p>
+        <template v-slot:[`item.value`]="{ item }">
+            <div v-if="isY(item)">
+                <v-chip
+                        color="black"
+                        outlined
+                >{{ item.value }}
+                </v-chip>
+            </div>
+            <div v-else-if="isNotNullOrBlank(item)">
+                <v-chip>{{ item.value }}</v-chip>
+            </div>
         </template>
     </v-data-table>
 </template>
@@ -46,6 +55,10 @@ export default {
                 },
             ],
         }
+    },
+    methods: {
+        isY: (item) => item?.value?.trim() === "Y",
+        isNotNullOrBlank: (item) => item?.value && item?.value?.length > 0
     }
 }
 </script>
