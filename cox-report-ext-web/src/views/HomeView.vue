@@ -19,7 +19,7 @@
                             solo
                     ></v-text-field>
                 </v-col>
-                <v-col cols="2">
+                <v-col cols="3">
                     <v-select
                             v-model="filter.auctionLocationUid"
                             :items="classifiers.auctionLocation"
@@ -30,24 +30,32 @@
                             solo
                     ></v-select>
                 </v-col>
-                <v-col cols="2">
+                <v-col cols="3">
                     <date-picker v-model="filter.saleDate" label="Search by Sale Date"></date-picker>
                 </v-col>
-                <v-col align="center" class="mt-2" cols="2">
+            </v-row>
+            <v-row class="ml-2 mr-2">
+                <v-col align="right" cols="12">
                     <v-btn
-                            color="green"
+                            color="primary"
                             outlined
                             @click="getSalesTransactions"
                     >
                         Search
+                        <v-icon class="ml-1" dark>
+                            mdi-magnify
+                        </v-icon>
                     </v-btn>
                     <v-btn
                             class="ml-2"
-                            color="green"
+                            color="primary"
                             outlined
                             @click="onClearFilters"
                     >
                         Clear
+                        <v-icon class="ml-1" dark>
+                            mdi-close
+                        </v-icon>
                     </v-btn>
                 </v-col>
             </v-row>
