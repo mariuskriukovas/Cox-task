@@ -157,13 +157,14 @@ export default {
     },
     methods: {
         ...mapActions(useClassifierStorage, ['loadAuctionLocationClassifier']),
-        onClearFilters() {
+        async onClearFilters() {
             this.filter = {
                 vin: null,
                 dealerNumber: null,
                 auctionLocationUid: null,
                 saleDate: null,
             }
+            await this.getSalesTransactions()
         },
         async getSalesTransactions() {
             const data = await SaleTransactionApi.getSalesTransactions(this.filter, this.saleTransactionOptions)
