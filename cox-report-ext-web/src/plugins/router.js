@@ -3,8 +3,8 @@ import VueRouter from 'vue-router'
 
 export const HOME_ROUTE_NAME = 'Home'
 export const VEHICLE_ROUTE_NAME = 'Vehicle'
-export const PAYMENT_INFORMATION_TAB_ROUTE_NAME = 'PaymentInformation'
 export const ARBITRATION_INFORMATION_ROUTE_NAME = 'ArbitrationInformation'
+export const TITLE_INFORMATION_ROUTE_NAME = 'TitleInformation'
 
 
 const HomeRoute = Object.freeze({
@@ -16,11 +16,11 @@ const VehicleRoute = Object.freeze({
     name: VEHICLE_ROUTE_NAME,
     meta: {},
     component: () => import('../views/VehicleView.vue'),
-    redirect: '/vehicle/:uid/payment-information',
+    redirect: '/vehicle/:uid/title-information',
     children: [{
-        name: PAYMENT_INFORMATION_TAB_ROUTE_NAME,
-        path: 'payment-information',
-        component: () => import('../views/vehicleTabs/PaymentInformation.vue')
+        name: TITLE_INFORMATION_ROUTE_NAME,
+        path: 'title-information',
+        component: () => import('../views/vehicleTabs/TitleInformation.vue')
     }, {
         name: ARBITRATION_INFORMATION_ROUTE_NAME,
         path: 'arbitration-information',

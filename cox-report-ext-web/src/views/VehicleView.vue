@@ -80,11 +80,7 @@
 
 <script>
 import SaleTransactionApi from "@/api/mockSaleTransactionApi.js";
-import {
-    ARBITRATION_INFORMATION_ROUTE_NAME,
-    HOME_ROUTE_NAME,
-    PAYMENT_INFORMATION_TAB_ROUTE_NAME
-} from "@/plugins/router";
+import {ARBITRATION_INFORMATION_ROUTE_NAME, HOME_ROUTE_NAME, TITLE_INFORMATION_ROUTE_NAME} from "@/plugins/router";
 import HeaderLabel from "@/components/HeaderLabel.vue";
 
 export default {
@@ -148,15 +144,15 @@ export default {
     async mounted() {
         this.tabs = [
             {
-                title: "Payment Information",
-                name: PAYMENT_INFORMATION_TAB_ROUTE_NAME,
-                route: {name: PAYMENT_INFORMATION_TAB_ROUTE_NAME, params: this.$route.params},
+                title: "Title Information",
+                name: TITLE_INFORMATION_ROUTE_NAME,
+                route: {name: TITLE_INFORMATION_ROUTE_NAME, params: this.$route.params},
             },
             {
                 title: "Arbitration Information",
                 name: ARBITRATION_INFORMATION_ROUTE_NAME,
                 route: {name: ARBITRATION_INFORMATION_ROUTE_NAME, params: this.$route.params},
-            }
+            },
         ]
 
         const vehicleUid = this.$route.params?.uid

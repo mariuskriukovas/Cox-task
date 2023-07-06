@@ -2,26 +2,26 @@
     <v-container>
         <v-row class="ml-2 mr-2">
             <v-col cols="12">
-                <attribute-table v-model="arbitrationInformationAttributes"></attribute-table>
+                <attribute-table v-model="titleInformationAttributes"></attribute-table>
             </v-col>
         </v-row>
     </v-container>
 </template>
 
 <script>
-
+import TitleInformationApi from "@/api/mockTitleInformationApi.js";
 import AttributeTable from "@/components/AttributeTable.vue";
-import ArbitrationInformationApi from "@/api/mockArbitrationInformationApi";
+
 
 export default {
-    name: 'ArbitrationInformation',
+    name: 'TitleInformation',
     components: {AttributeTable},
     data: () => ({
-        arbitrationInformationAttributes: [],
+        titleInformationAttributes: [],
     }),
     async mounted() {
         const vehicleUid = this.$route.params?.uid
-        this.arbitrationInformationAttributes = await ArbitrationInformationApi.getArbitrationInformation(vehicleUid)
+        this.titleInformationAttributes = await TitleInformationApi.getTitleInformation(vehicleUid)
     },
     methods: {}
 }
