@@ -1,6 +1,6 @@
 // todo implement BE application, replace by AXIOS calls
 
-import {find, map} from "lodash";
+import {filter, find, map} from "lodash";
 
 const mockVehicleData = [{
     uid: "7075ae7f-67de-4741-902d-cdfc3f99ab6a",
@@ -114,14 +114,25 @@ const mockVehicleData = [{
     vehicleYear: "2020"
 }]
 
+const isFilterValid = (filter) => filter ?? filter?.length > 0
 export default {
 
     // eslint-disable-next-line no-unused-vars
     async getSalesTransactions(filters, pageable) {
-        // Todo BE will be responsible for filtering, ordering and pagination
-        // Not seeing purpose to mock this behaviour using lodash
+        // Todo BE will be responsible for filtering, ordering and pagination, so providing only very simple example
+        const mockData =
+            filter(mockVehicleData, e => {
+                let matchFilters = true
+                if (isFilterValid(filters?.vin)) {
+                    matchFilters = matchFilters && e.vin.includes(filters?.vin)
+                }
+                if (isFilterValid(filters?.saleDate)) {
+                    matchFilters = matchFilters && e.saleDate.includes(filters?.saleDate)
+                }
+                return matchFilters
+            })
         return {
-            totalElements: 10, content: mockVehicleData
+            totalElements: 10, content: mockData
         }
     },
     async getVehicleHeader(vehicleUid) {
